@@ -80,6 +80,10 @@ class RunkitConstant implements \Runkit\RunkitConstant {
 		if ($this->getName() == $name) {
 			return true;
 		}
-		return Factory::getExecutor()->renameConstant($this, $name);
+		if (Factory::getExecutor()->renameConstant($this, $name)) {
+			$this->name = $name;
+			return true;
+		}
+		return false;
 	}
 }

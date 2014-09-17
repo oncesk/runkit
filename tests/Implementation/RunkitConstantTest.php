@@ -90,7 +90,12 @@ class RunkitConstantTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testRenameForClass() {
-
+		$const = new RunkitConstant('RunkitConstantTesterClass::CONSTANT_BOOL');
+		$this->assertEquals('RunkitConstantTesterClass::CONSTANT_BOOL', $const->getName());
+		$this->assertTrue($const->rename('RunkitConstantTesterClass::CONSTANT_BOOL_RENAMED'));
+		$this->assertEquals('RunkitConstantTesterClass::CONSTANT_BOOL_RENAMED', $const->getName());
+		$this->assertFalse(defined('RunkitConstantTesterClass::CONSTANT_BOOL'));
+		$this->assertTrue(defined('RunkitConstantTesterClass::CONSTANT_BOOL_RENAMED'));
 	}
 
 	public function testRemove() {
