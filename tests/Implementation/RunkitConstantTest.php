@@ -1,6 +1,7 @@
 <?php
 
 define('RunkitConstantTestRedefine', 1);
+define('RunkitConstantTestRename', 22);
 
 class RunkitConstantTesterClass {
 
@@ -86,16 +87,27 @@ class RunkitConstantTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testRename() {
+		$constant = 'RunkitConstantTestRename';
 
+		$const = new RunkitConstant($constant);
+		$this->assertEquals(22, $const->getValue());
+		$this->assertTrue($const->rename('RunkitConstantTestRename_renamed'));
+		$this->assertEquals('RunkitConstantTestRename_renamed', $const->getName());
+		$this->assertTrue(defined('RunkitConstantTestRename_renamed'));
+		$this->assertFalse(defined('RunkitConstantTestRename'));
+		$this->assertEquals(22, constant('RunkitConstantTestRename_renamed'));
 	}
 
 	public function testRenameForClass() {
 		$const = new RunkitConstant('RunkitConstantTesterClass::CONSTANT_BOOL');
+		$this->assertEquals(false, $const->getValue());
 		$this->assertEquals('RunkitConstantTesterClass::CONSTANT_BOOL', $const->getName());
 		$this->assertTrue($const->rename('RunkitConstantTesterClass::CONSTANT_BOOL_RENAMED'));
 		$this->assertEquals('RunkitConstantTesterClass::CONSTANT_BOOL_RENAMED', $const->getName());
 		$this->assertFalse(defined('RunkitConstantTesterClass::CONSTANT_BOOL'));
 		$this->assertTrue(defined('RunkitConstantTesterClass::CONSTANT_BOOL_RENAMED'));
+		$this->assertEquals(false, $const->getValue());
+		$this->assertEquals(false, constant('RunkitConstantTesterClass::CONSTANT_BOOL_RENAMED'));
 	}
 
 	public function testRemove() {
