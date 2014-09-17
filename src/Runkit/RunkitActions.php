@@ -8,6 +8,16 @@ namespace Runkit;
 interface RunkitActions {
 
 	/**
+	 * @return boolean
+	 */
+	public function define();
+
+	/**
+	 * @return boolean
+	 */
+	public function isDefined();
+
+	/**
 	 * Redefine function with new argumentns and new code
 	 *
 	 * @return boolean
