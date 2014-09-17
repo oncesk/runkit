@@ -15,10 +15,26 @@ class Arguments implements ArgumentsCollection {
 	private $arguments = array();
 
 	/**
-	 * @param array $arguments
+	 * @var \ReflectionFunctionAbstract
 	 */
-	public function __construct(array $arguments = array()) {
+	private $reflection;
+
+	/**
+	 * @param array                       $arguments
+	 * @param \ReflectionFunctionAbstract $reflection
+	 */
+	public function __construct(array $arguments = array(), \ReflectionFunctionAbstract $reflection = null) {
 		$this->arguments = $arguments;
+		$this->reflection = $reflection;
+		if ($reflection) {
+			foreach ($reflection->getParameters() as $parameter) {
+				if ($parameter->isOptional()) {
+					$this->add('$' . $parameter->getName() . ' = ' . $parameter->getDefaultValue());
+				} else {
+					$this->add('$' . $parameter->getName());
+				}
+			}
+		}
 	}
 
 	/**

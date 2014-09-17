@@ -39,6 +39,7 @@ class RunkitFunction implements RunkitFunctionInterface {
 		if (!is_string($name) || empty($name)) {
 			throw new \RuntimeException('Name should be string and not empty');
 		}
+		$this->name = $name;
 		if ($reflection) {
 			if ($reflection->getName() != $name) {
 				throw new \RuntimeException('Reflection getName not equal with name which you provides');
@@ -52,8 +53,7 @@ class RunkitFunction implements RunkitFunctionInterface {
 		if ($reflection && $reflection->isInternal()) {
 			throw new \RuntimeException('You can not works with internal PHP functions, only user defined');
 		}
-		$this->name = $name;
-		$this->arguments = new Arguments();
+		$this->arguments = new Arguments(array(), $reflection);
 	}
 
 	/**

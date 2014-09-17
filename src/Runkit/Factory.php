@@ -54,7 +54,12 @@ class Factory {
 	 * @return Code
 	 */
 	public static function createCode($reflection) {
-
+		$class = self::$codeClass;
+		$object = new $class($reflection);
+		if (!($object instanceof Code)) {
+			throw new \RuntimeException($class . ' should be instance of \Runkit\Code');
+		}
+		return $object;
 	}
 
 	/**
