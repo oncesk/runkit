@@ -52,6 +52,7 @@ class RunkitFunction implements RunkitFunctionInterface {
 		if ($reflection && $reflection->isInternal()) {
 			throw new \RuntimeException('You can not works with internal PHP functions, only user defined');
 		}
+		$this->name = $name;
 		$this->arguments = new Arguments();
 	}
 
