@@ -48,15 +48,26 @@ class RunkitConstant implements \Runkit\RunkitConstant {
 	}
 
 	/**
+	 * @return boolean
+	 */
+	public function isDefined() {
+		return defined($this->getName());
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function define() {
+		return $this->isDefined() ? $this->redefine() : Factory::getExecutor()->addConstant($this->getName(), $this->getValue());
+	}
+
+	/**
 	 * Redefine function with new argumentns and new code
 	 *
 	 * @return boolean
 	 */
 	public function redefine() {
-		if (defined($this->getName())) {
-			return Factory::getExecutor()->redefineConstant($this);
-		}
-		return Factory::getExecutor()->addConstant($this->getName(), $this->getValue());
+		return $this->isDefined() ? Factory::getExecutor()->redefineConstant($this) : $this->define();
 	}
 
 	/**

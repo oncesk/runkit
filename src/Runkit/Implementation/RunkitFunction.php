@@ -100,12 +100,26 @@ class RunkitFunction implements RunkitFunctionInterface {
 	}
 
 	/**
+	 * @return boolean
+	 */
+	public function isDefined() {
+		return function_exists($this->getName());
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function define() {
+		return $this->isDefined() ? $this->redefine() : Factory::getExecutor()->addFunction($this);
+	}
+
+	/**
 	 * Redefine function with new argumentns and new code
 	 *
 	 * @return boolean
 	 */
 	public function redefine() {
-		return Factory::getExecutor()->redefineFunction($this);
+		return $this->isDefined() ? Factory::getExecutor()->redefineFunction($this) : $this->define();
 	}
 
 	/**
