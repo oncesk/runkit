@@ -5,6 +5,8 @@ define('RunkitConstantTestRename', 22);
 
 class RunkitConstantTesterClass {
 
+	const TEST_DEFINED = 1;
+
 	const CONSTANT_STRING = 'hello';
 	const CONSTANT_BOOL = false;
 	const CONSTANT_NULL = null;
@@ -35,6 +37,20 @@ class RunkitConstantTest extends PHPUnit_Framework_TestCase {
 		$const = new RunkitConstant('test');
 		$this->assertEquals(Runkit::TYPE_CONSTANT, $const->getType());
 	}
+
+	public function testIsDefined() {
+		$const = new RunkitConstant('testIsDefined');
+		$this->assertFalse(defined('testIsDefined'));
+		$this->assertEquals(defined('testIsDefined'), $const->isDefined());
+
+		$const = new RunkitConstant('RunkitConstantTestRedefine');
+		$this->assertEquals(defined('RunkitConstantTestRedefine'), $const->isDefined());
+
+		$const = new RunkitConstant('RunkitConstantTesterClass::TEST_DEFINED');
+		$this->assertEquals(defined('RunkitConstantTesterClass::TEST_DEFINED'), $const->isDefined());
+	}
+
+	
 
 	public function testRedefine() {
 		$const = new RunkitConstant('RunkitConstantTestRedefine');
