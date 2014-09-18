@@ -77,6 +77,12 @@ class RunkitProperty implements \Runkit\RunkitProperty {
 		return property_exists($this->getClass(), $this->getName());
 	}
 
+	/**
+	 * @return boolean
+	 */
+	public function define() {
+		return $this->isDefined() ? $this->redefine() : Factory::getExecutor()->addProperty($this);
+	}
 
 	/**
 	 * Redefine function with new argumentns and new code
