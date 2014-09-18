@@ -9,6 +9,7 @@ class RunkitPropertyTestClass {
 
 use Runkit\Runkit;
 use Runkit\Implementation\RunkitProperty;
+use Runkit\Access;
 
 class RunkitPropertyTest extends PHPUnit_Framework_TestCase {
 
@@ -75,5 +76,21 @@ class RunkitPropertyTest extends PHPUnit_Framework_TestCase {
 
 		$prop = new RunkitProperty('RunkitPropertyTestClass', 'privateProperty');
 		$this->assertTrue($prop->isDefined());
+	}
+
+	public function testGetAccess() {
+		$prop = new RunkitProperty('RunkitPropertyTestClass', 'test');
+		$this->assertEquals(Access::ACCESS_PUBLIC, $prop->getAccess());
+		$prop->setAccess(Access::ACCESS_PROTECTED);
+		$this->assertEquals(Access::ACCESS_PROTECTED, $prop->getAccess());
+
+		$prop = new RunkitProperty('RunkitPropertyTestClass', 'publicProperty');
+		$this->assertEquals(Access::ACCESS_PUBLIC, $prop->getAccess());
+
+		$prop = new RunkitProperty('RunkitPropertyTestClass', 'protectedProperty');
+		$this->assertEquals(Access::ACCESS_PROTECTED, $prop->getAccess());
+
+		$prop = new RunkitProperty('RunkitPropertyTestClass', 'privateProperty');
+		$this->assertEquals(Access::ACCESS_PRIVATE, $prop->getAccess());
 	}
 }
