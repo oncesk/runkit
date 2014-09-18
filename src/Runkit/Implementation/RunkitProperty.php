@@ -42,6 +42,8 @@ class RunkitProperty implements \Runkit\RunkitProperty {
 			if (!class_exists($class)) {
 				throw new \RuntimeException('Class is not defined');
 			}
+		} else if (!is_object($class)) {
+			throw new \RuntimeException('Invalid class type, type - ' . gettype($class));
 		}
 		$this->class = $class;
 		if (!is_string($property) || empty($property)) {
