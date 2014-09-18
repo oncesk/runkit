@@ -77,12 +77,26 @@ class RunkitMethod implements RunkitMethodInterface {
 	}
 
 	/**
+	 * @return boolean
+	 */
+	public function define() {
+		return $this->isDefined() ? $this->redefine() : Factory::getExecutor()->addMethod($this);
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isDefined() {
+		return method_exists($this->getClass(), $this->getName());
+	}
+
+	/**
 	 * Redefine function with new argumentns and new code
 	 *
 	 * @return boolean
 	 */
 	public function redefine() {
-		return Factory::getExecutor()->redefineMethod($this);
+		return $this->isDefined() ? Factory::getExecutor()->redefineMethod($this) : $this->define();
 	}
 
 	/**
