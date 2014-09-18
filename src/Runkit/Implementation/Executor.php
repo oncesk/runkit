@@ -139,12 +139,15 @@ class Executor implements \Runkit\Executor {
 		if (!function_exists('runkit_default_property_add')) {
 			return false;
 		}
-		return runkit_default_property_add(
-			$property->getClass(),
-			$property->getName(),
-			$property->getValue(),
-			$property->getAccess() | Runkit::OVERRIDE_OBJECTS
-		);
+		if (property_exists($property->getClass(), $property->getName())) {
+			if ($this->removeProperty($property->getClass(), $property->getName())) {
+				return $this->addProperty($property);
+			} else {
+				return false;
+			}
+		} else {
+			return $this->addProperty($property);
+		}
 	}
 
 	/**

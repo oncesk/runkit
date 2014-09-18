@@ -132,14 +132,43 @@ class RunkitPropertyTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testRedefine() {
+		$prop = new RunkitProperty('RunkitPropertyTestClass', 'publicProperty');
+		$this->assertTrue($prop->isDefined());
+		$this->assertTrue(property_exists('RunkitPropertyTestClass', 'publicProperty'));
+		$this->assertEquals(12, $prop->getValue());
+		$this->assertEquals(Access::ACCESS_PUBLIC, $prop->getAccess());
 
+		$prop->setValue(13);
+		$this->assertTrue($prop->redefine());
+		$this->assertEquals(13, $prop->getValue());
+		$newProp = new RunkitProperty('RunkitPropertyTestClass', 'publicProperty');
+		$this->assertEquals(13, $newProp->getValue());
+		$class = new RunkitPropertyTestClass();
+		$this->assertEquals(13, $class->publicProperty);
+
+		$newProp->setAccess(Access::ACCESS_PROTECTED);
+		$this->assertTrue($newProp->redefine());
+		$reflection = new \ReflectionProperty('RunkitPropertyTestClass', 'publicProperty');
+		$this->assertTrue($reflection->isProtected());
+		$this->assertFalse($reflection->isPublic());
 	}
 
 	public function testRemove() {
+		$prop = new RunkitProperty('RunkitPropertyTestClass', 'publicProperty');
+		$this->assertTrue($prop->isDefined());
+		$this->assertTrue($prop->remove());
+		$this->assertFalse($prop->isDefined());
+		$this->assertFalse(property_exists($prop->getClass(), $prop->getName()));
 
+		$newProp = new RunkitProperty('RunkitPropertyTestClass', 'testRemove');
+		$this->assertTrue($newProp->define());
+		$this->assertTrue($newProp->isDefined());
+		$this->assertTrue($newProp->remove());
+		$this->assertFalse($newProp->isDefined());
+		$this->assertFalse(property_exists($newProp->getClass(), $newProp->getName()));
 	}
 
 	public function testRename() {
-		
+
 	}
 }
