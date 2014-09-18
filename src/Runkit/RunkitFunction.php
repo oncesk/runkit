@@ -16,6 +16,7 @@ interface RunkitFunction extends Runkit, CodeOwner, RunkitActions, ArgumentsProv
 	public function __construct($name, \ReflectionFunction $reflection = null);
 
 	/**
+	 * @throws \RuntimeException
 	 * @return mixed
 	 */
 	public function __invoke();

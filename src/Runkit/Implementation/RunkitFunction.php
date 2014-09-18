@@ -133,10 +133,15 @@ class RunkitFunction implements RunkitFunctionInterface {
 	}
 
 	/**
+	 * @throws \RuntimeException
 	 * @return mixed
 	 */
 	public function __invoke() {
-		return $this->getReflection()->invokeArgs(func_get_args());
+		$reflection = $this->getReflection();
+		if ($reflection) {
+			return $this->getReflection()->invokeArgs(func_get_args());
+		}
+		throw new \RuntimeException('Function ' . $this->getName() . ' is not defined');
 	}
 
 	/**
