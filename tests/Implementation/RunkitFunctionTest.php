@@ -11,6 +11,10 @@ function testRename() {
 
 }
 
+function testInvoke() {
+	return 'Success';
+}
+
 function testRedefine() {
 	return 'Test';
 }
@@ -123,5 +127,19 @@ class RunkitFunctionTest extends PHPUnit_Framework_TestCase {
 		$func = new RunkitFunction('testRemove');
 		$this->assertTrue($func->remove());
 		$this->assertFalse(function_exists('testRemove'));
+	}
+
+	public function testInvoke() {
+		$func = new RunkitFunction('testInvoke');
+		$this->assertEquals('Success', $func());
+
+		$func = new RunkitFunction('testInvokeDynamic');
+		$func->getCode()->set('return "Invoked";');
+		$this->assertTrue($func->define());
+		$this->assertEquals('Invoked', $func());
+
+		$func = new RunkitFunction('testInvokeDynamic2');
+		$this->setExpectedException('RuntimeException', 'Function ' . $func->getName() . ' is not defined');
+		$func();
 	}
 }
