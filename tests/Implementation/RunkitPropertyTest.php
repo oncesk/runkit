@@ -129,6 +129,17 @@ class RunkitPropertyTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(property_exists($class, 'testMeForObjectOverride'));
 		$this->assertTrue(isset($class->testMeForObjectOverride));
 		$this->assertEquals(400, $class->testMeForObjectOverride);
+	}
 
+	public function testRedefine() {
+
+	}
+
+	public function testRemove() {
+
+	}
+
+	public function testRename() {
+		
 	}
 }
