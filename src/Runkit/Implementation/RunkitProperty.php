@@ -90,7 +90,7 @@ class RunkitProperty implements \Runkit\RunkitProperty {
 	 * @return boolean
 	 */
 	public function redefine() {
-		return Factory::getExecutor()->redefineProperty($this);
+		return $this->isDefined() ? Factory::getExecutor()->redefineProperty($this) : $this->define();
 	}
 
 	/**
