@@ -5,7 +5,7 @@ namespace Runkit;
  * Class Arguments
  * @package Runkit
  */
-interface ArgumentsCollection {
+interface ArgumentsCollection extends \Countable {
 
 	/**
 	 * @return array

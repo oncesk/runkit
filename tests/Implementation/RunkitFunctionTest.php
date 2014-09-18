@@ -11,6 +11,10 @@ function testRename() {
 
 }
 
+function testGetArguments($a, $b = 1, $c = array()) {
+
+}
+
 function testInvoke() {
 	return 'Success';
 }
@@ -65,6 +69,10 @@ class RunkitFunctionTest extends PHPUnit_Framework_TestCase {
 	public function testGetArguments() {
 		$func = new RunkitFunction('test');
 		$this->assertInstanceOf('\Runkit\ArgumentsCollection', $func->getArguments());
+
+		$func = new RunkitFunction('testGetArguments');
+		$this->assertTrue($func->getArguments()->hasArgument('$a'));
+		$this->assertEquals(3, count($func->getArguments()));
 	}
 
 	public function testRename() {

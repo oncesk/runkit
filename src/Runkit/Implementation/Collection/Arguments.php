@@ -29,7 +29,14 @@ class Arguments implements ArgumentsCollection {
 		if ($reflection) {
 			foreach ($reflection->getParameters() as $parameter) {
 				if ($parameter->isOptional()) {
-					$this->add('$' . $parameter->getName() . ' = ' . $parameter->getDefaultValue());
+					$default = $parameter->getDefaultValue();
+					switch (gettype($default)) {
+
+						case 'array':
+							$default = var_export($default, true);
+							break;
+					}
+					$this->add('$' . $parameter->getName() . ' = ' . $default);
 				} else {
 					$this->add('$' . $parameter->getName());
 				}
@@ -84,5 +91,18 @@ class Arguments implements ArgumentsCollection {
 	 */
 	public function __toString() {
 		return implode(',', $this->getAll());
+	}
+
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * Count elements of an object
+	 * @link http://php.net/manual/en/countable.count.php
+	 * @return int The custom count as an integer.
+	 * </p>
+	 * <p>
+	 *       The return value is cast to an integer.
+	 */
+	public function count() {
+		return count($this->arguments);
 	}
 }
