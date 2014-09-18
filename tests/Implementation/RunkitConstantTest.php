@@ -50,7 +50,25 @@ class RunkitConstantTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(defined('RunkitConstantTesterClass::TEST_DEFINED'), $const->isDefined());
 	}
 
-	
+	public function testDefine() {
+		$const = new RunkitConstant('ConstantTestDefine');
+		$this->assertFalse($const->isDefined());
+		$this->assertFalse(defined('ConstantTestDefine'));
+		$const->setValue(1);
+		$this->assertTrue($const->define());
+		$this->assertTrue($const->isDefined());
+		$this->assertTrue(defined('ConstantTestDefine'));
+		$this->assertEquals(1, $const->getValue());
+		$this->assertEquals(constant('ConstantTestDefine'), $const->getValue());
+
+		$c = 'RunkitConstantTesterClass::ConstantTestDefine';
+		$const = new RunkitConstant($c);
+		$this->assertFalse($const->isDefined());
+		$this->assertEquals(defined($c), $const->isDefined());
+		$this->assertTrue($const->define());
+		$this->assertTrue($const->isDefined());
+		$this->assertEquals(defined($c), $const->isDefined());
+	}
 
 	public function testRedefine() {
 		$const = new RunkitConstant('RunkitConstantTestRedefine');
