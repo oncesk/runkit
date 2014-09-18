@@ -31,11 +31,20 @@ class RunkitMethod implements RunkitMethodInterface {
 	 * @param string            $name
 	 * @param array             $arguments
 	 * @param \ReflectionMethod $reflection
+	 *
+	 * @throws \RuntimeException
 	 */
 	public function __construct($class, $name, array $arguments = array(), \ReflectionMethod $reflection = null) {
+		if (is_string($class)) {
+			if (!class_exists($class)) {
+				throw new \RuntimeException('Class ' . $class . ' is not defined');
+			}
+		} else if (!is_object($class)) {
+			throw new \RuntimeException('Class type is not supported, type - ' . gettype($class));
+		}
 		$this->class = $class;
 		$this->name = $name;
-		$this->arguments = new Arguments($arguments);
+		$this->arguments = new Arguments($arguments, $reflection);
 		$this->setReflection($reflection);
 	}
 
