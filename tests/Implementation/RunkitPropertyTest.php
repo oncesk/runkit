@@ -93,4 +93,10 @@ class RunkitPropertyTest extends PHPUnit_Framework_TestCase {
 		$prop = new RunkitProperty('RunkitPropertyTestClass', 'privateProperty');
 		$this->assertEquals(Access::ACCESS_PRIVATE, $prop->getAccess());
 	}
+
+	public function testSetAccess() {
+		$prop = new RunkitProperty('RunkitPropertyTestClass', 'test');
+		$prop->setAccess(Access::ACCESS_PRIVATE);
+		$this->assertEquals(Access::ACCESS_PRIVATE, $prop->getAccess());
+	}
 }
