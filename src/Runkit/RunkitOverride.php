@@ -15,5 +15,5 @@ interface RunkitOverride {
 	/**
 	 * @return boolean
 	 */
-	public function overrideObjects();
+	public function getOverrideMode();
 }

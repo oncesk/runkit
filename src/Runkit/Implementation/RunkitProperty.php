@@ -30,6 +30,11 @@ class RunkitProperty implements \Runkit\RunkitProperty {
 	protected $name;
 
 	/**
+	 * @var bool
+	 */
+	protected $override = false;
+
+	/**
 	 * @param string              $class
 	 * @param string              $property
 	 * @param \ReflectionProperty $reflection
@@ -73,6 +78,21 @@ class RunkitProperty implements \Runkit\RunkitProperty {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function setOverrideMode() {
+		$this->override = true;
+		return $this;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getOverrideMode() {
+		return $this->override;
 	}
 
 	/**

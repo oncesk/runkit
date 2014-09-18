@@ -10,7 +10,7 @@
 namespace Runkit;
 
 
-interface RunkitProperty extends Runkit, RunkitActions, Access {
+interface RunkitProperty extends Runkit, RunkitActions, Access, RunkitOverride {
 
 	/**
 	 * @param string              $class
