@@ -70,11 +70,14 @@ class Executor implements \Runkit\Executor {
 		}
 		$classValue = $property->getClass();
 		$class = is_object($classValue) ? get_class($classValue) : $classValue;
+
+		$flags = $property->getOverrideMode() ? $property->getAccess() | Runkit::OVERRIDE_OBJECTS : $property->getAccess();
+
 		return runkit_default_property_add(
 			$class,
 			$property->getName(),
 			$property->getValue(),
-			$property->getAccess()
+			$flags
 		);
 	}
 
