@@ -35,11 +35,13 @@ class RunkitProperty implements \Runkit\RunkitProperty {
 	 * @throws \RuntimeException
 	 */
 	public function __construct($class, $property, \ReflectionProperty $reflection = null) {
-		if (!is_string($class) || empty($class)) {
-			throw new \RuntimeException('Class name can not be empty');
-		}
-		if (!class_exists($class)) {
-			throw new \RuntimeException('Class is not defined');
+		if (is_string($class)) {
+			if (empty($class)) {
+				throw new \RuntimeException('Class name can not be empty');
+			}
+			if (!class_exists($class)) {
+				throw new \RuntimeException('Class is not defined');
+			}
 		}
 		$this->class = $class;
 		if (!is_string($property) || empty($property)) {
