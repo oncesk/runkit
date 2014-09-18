@@ -24,4 +24,9 @@ class RunkitPropertyTest extends PHPUnit_Framework_TestCase {
 		$prop = new RunkitProperty($class, 'test');
 		$this->assertEquals($class, $prop->getClass());
 	}
+
+	public function testGetName() {
+		$prop = new RunkitProperty('RunkitPropertyTestClass', 'test');
+		$this->assertEquals('test', $prop->getName());
+	}
 }
