@@ -71,6 +71,14 @@ class RunkitProperty implements \Runkit\RunkitProperty {
 	}
 
 	/**
+	 * @return boolean
+	 */
+	public function isDefined() {
+		return property_exists($this->getClass(), $this->getName());
+	}
+
+
+	/**
 	 * Redefine function with new argumentns and new code
 	 *
 	 * @return boolean
