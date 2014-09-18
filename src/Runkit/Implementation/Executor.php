@@ -68,8 +68,10 @@ class Executor implements \Runkit\Executor {
 		if (!function_exists('runkit_default_property_add')) {
 			return false;
 		}
+		$classValue = $property->getClass();
+		$class = is_object($classValue) ? get_class($classValue) : $classValue;
 		return runkit_default_property_add(
-			$property->getClass(),
+			$class,
 			$property->getName(),
 			$property->getValue(),
 			$property->getAccess()
