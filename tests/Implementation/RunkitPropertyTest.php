@@ -169,6 +169,14 @@ class RunkitPropertyTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testRename() {
-
+		$prop = new RunkitProperty('RunkitPropertyTestClass', 'testRename');
+		$this->assertFalse($prop->isDefined());
+		$this->assertFalse(property_exists($prop->getClass(), $prop->getName()));
+		$this->assertTrue($prop->define());
+		$this->assertTrue($prop->isDefined());
+		$this->assertTrue($prop->rename('testRenameProperty'));
+		$this->assertTrue($prop->isDefined());
+		$this->assertEquals('testRenameProperty', $prop->getName());
+		$this->assertFalse(property_exists($prop->getClass(), 'testRename'));
 	}
 }

@@ -160,7 +160,11 @@ class RunkitProperty implements \Runkit\RunkitProperty {
 		if (property_exists($this->getClass(), $name)) {
 			throw new \RuntimeException('Property ' . $name . ' already defined in ' . $this->getClass());
 		}
-		return Factory::getExecutor()->renameProperty($this, $name);
+		if (Factory::getExecutor()->renameProperty($this, $name)) {
+			$this->name = $name;
+			return true;
+		}
+		return false;
 	}
 
 	/**
