@@ -64,10 +64,16 @@ class RunkitPropertyTest extends PHPUnit_Framework_TestCase {
 	public function testIsDefined() {
 		$prop = new RunkitProperty('RunkitPropertyTestClass', 'test');
 		$this->assertFalse($prop->isDefined());
-		$this->assertFalse(defined('RunkitPropertyTestClass::test'));
+		$this->assertFalse(property_exists('RunkitPropertyTestClass', 'test'));
 		$prop->setValue(400);
 		$this->assertTrue($prop->define());
 		$this->assertTrue($prop->isDefined());
-		$this->assertTrue(defined('RunkitPropertyTestClass::test'));
+		$this->assertTrue(property_exists('RunkitPropertyTestClass', 'test'));
+
+		$prop = new RunkitProperty('RunkitPropertyTestClass', 'publicProperty');
+		$this->assertTrue($prop->isDefined());
+
+		$prop = new RunkitProperty('RunkitPropertyTestClass', 'privateProperty');
+		$this->assertTrue($prop->isDefined());
 	}
 }

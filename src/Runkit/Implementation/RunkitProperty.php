@@ -6,6 +6,7 @@ use Runkit\Helper\GetSetAccess;
 use Runkit\Helper\GetSetReflection;
 use Runkit\Helper\GetSetValue;
 use Runkit\Runkit;
+use Runkit\Access;
 
 /**
  * Class RunkitProperty
@@ -51,6 +52,17 @@ class RunkitProperty implements \Runkit\RunkitProperty {
 		}
 		$this->name = $property;
 		$this->setReflection($reflection);
+		if (property_exists($class, $property)) {
+			$reflection = $this->getReflection();
+			/** @var \ReflectionProperty $reflection */
+			if ($reflection->isPublic()) {
+				$this->setAccess(Access::ACCESS_PUBLIC);
+			} else if ($reflection->isPrivate()) {
+				$this->setAccess(Access::ACCESS_PRIVATE);
+			} else if ($reflection->isProtected()) {
+				$this->setAccess(Access::ACCESS_PROTECTED);
+			}
+		}
 	}
 
 	/**
