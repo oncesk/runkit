@@ -272,7 +272,7 @@ class Executor implements \Runkit\Executor {
 				$property->getClass(),
 				$newName,
 				$property->getValue(),
-				$property->getAccess()
+				$property->getOverrideMode() ? $property->getAccess() | Runkit::OVERRIDE_OBJECTS : $property->getAccess()
 			);
 		}
 		return false;
