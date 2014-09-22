@@ -1,5 +1,5 @@
 <?php
-namespace Runkit\Item;
+namespace Runkit\Implementation;
 
 use Runkit\ArgumentsCollection;
 use Runkit\Helper\GetSetAccess;
@@ -44,6 +44,11 @@ class RunkitMethod implements RunkitMethodInterface {
 		}
 		$this->class = $class;
 		$this->name = $name;
+		if (!$reflection) {
+			if (method_exists($class, $name)) {
+				$reflection = new \ReflectionMethod($class, $name);
+			}
+		}
 		$this->arguments = new Arguments($arguments, $reflection);
 		$this->setReflection($reflection);
 	}
@@ -121,7 +126,10 @@ class RunkitMethod implements RunkitMethodInterface {
 			if (method_exists($this->getClass(), $name)) {
 				throw new \RuntimeException('Method with name ' . $name . ' already exists in class ' . $this->getClass());
 			}
-			return Factory::getExecutor()->renameMethod($this->getClass(), $this->getName(), $name);
+			if (Factory::getExecutor()->renameMethod($this->getClass(), $this->getName(), $name)) {
+				$this->name = $name;
+				return true;
+			}
 		}
 		return false;
 	}
