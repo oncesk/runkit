@@ -56,9 +56,10 @@ class Factory {
 	/**
 	 * @param \ReflectionFunctionAbstract|null $reflection
 	 *
+	 * @throws \RuntimeException
 	 * @return Code
 	 */
-	public static function createCode($reflection) {
+	public static function createCode($reflection = null) {
 		$class = self::$codeClass;
 		$object = new $class($reflection);
 		if (!($object instanceof Code)) {
