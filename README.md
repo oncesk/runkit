@@ -62,4 +62,13 @@ $function();
 
 ```
 
+####Tests
+
+Tested with PHPUnit
+
+```bash
+$> cd tests
+$> phpunit --bootstrap ../src/autoload.php  ./
+```
+
 PS: new releasses will be soon
