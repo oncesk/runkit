@@ -20,4 +20,9 @@ class RunkitFactoryTest extends PHPUnit_Framework_TestCase {
 		$code = Factory::createCode($reflection);
 		$this->assertInstanceOf('Runkit\Code', $code);
 	}
+
+	public function testGetExecutor() {
+		$executor = Factory::getExecutor();
+		$this->assertInstanceOf('Runkit\Executor', $executor);
+	}
 }

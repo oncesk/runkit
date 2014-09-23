@@ -43,6 +43,13 @@ class Factory {
 	private static $executor;
 
 	/**
+	 * @param Executor $executor
+	 */
+	public static function setExecutor(Executor $executor) {
+		self::$executor = $executor;
+	}
+
+	/**
 	 * @return Executor
 	 */
 	public static function getExecutor() {
