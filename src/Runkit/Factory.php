@@ -33,9 +33,21 @@ class Factory {
 	public static $propertyClass = '\Runkit\Implementation\RunkitProperty';
 
 	/**
+	 * @var string
+	 */
+	public static $functionClass = '\Runkit\Implementation\RunkitFunction';
+
+	/**
 	 * @var Executor
 	 */
 	private static $executor;
+
+	/**
+	 * @param Executor $executor
+	 */
+	public static function setExecutor(Executor $executor) {
+		self::$executor = $executor;
+	}
 
 	/**
 	 * @return Executor
@@ -51,13 +63,33 @@ class Factory {
 	/**
 	 * @param \ReflectionFunctionAbstract|null $reflection
 	 *
+	 * @throws \RuntimeException
 	 * @return Code
 	 */
-	public static function createCode($reflection) {
+	public static function createCode($reflection = null) {
 		$class = self::$codeClass;
 		$object = new $class($reflection);
 		if (!($object instanceof Code)) {
 			throw new \RuntimeException($class . ' should be instance of \Runkit\Code');
+		}
+		return $object;
+	}
+
+	/**
+	 * @param string              $name
+	 * @param \ReflectionFunction $reflection
+	 *
+	 * @return RunkitFunction
+	 * @throws \RuntimeException
+	 */
+	public static function createFunction($name, \ReflectionFunction $reflection = null) {
+		$class = self::$functionClass;
+		if (!class_exists($class)) {
+			throw new \RuntimeException($class . ' is not defined');
+		}
+		$object = new $class($name, $reflection);
+		if (!($object instanceof RunkitFunction)) {
+			throw new \RuntimeException($class . ' should implement RunkitFunction interface');
 		}
 		return $object;
 	}

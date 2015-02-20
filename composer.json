@@ -1,0 +1,11 @@
+{
+    "name": "oncesk/runkit",
+    "description": "Realtime php class and structure modification",
+    "authors": [
+        {
+            "name": "Alexey Panasik",
+            "email": "alexey.panasik@itmhouse.com"
+        }
+    ],
+    "require": {}
+}

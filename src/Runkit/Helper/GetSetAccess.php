@@ -24,7 +24,7 @@ trait GetSetAccess {
 	/**
 	 * @param integer $access
 	 *
-	 * @return \Runkit\RunkitMethod
+	 * @return $this
 	 */
 	public function setAccess($access) {
 		if (
