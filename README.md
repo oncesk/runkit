@@ -38,28 +38,29 @@ include __DIR__ . '/runkit/src/autoload.php';
 
 ```
 
+####Runkit Class
+
+Will be soon
+
+####Runkit Method
+
+Will be soon
+
 ####Runkit Function
 
-You can add, modify, delete functions in realtime
+Will be soon
 
-```php
-<?php
-use Runkit\RunkitFunction;
+####Runkit Constant
 
-function HeloWorld() {
-  echo 'Hello';
-}
+Will be soon
 
-$function = new RunkitFunction('HelloWorld');
-$function->setCode('echo "Hello World!";');
-$function->redefine();
+####Tests
 
-HeloWorld();
+Tested with PHPUnit
 
-// or you can use object of RunkitFunction class as a function
-
-$function();
-
+```bash
+$> cd tests
+$> phpunit --bootstrap ../src/autoload.php  ./
 ```
 
 PS: new releasses will be soon
