@@ -7,5 +7,10 @@
             "email": "alexey.panasik@itmhouse.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+		"psr-4": {
+			"Runkit\\": "src/Runkit"
+		}
+	}
 }
